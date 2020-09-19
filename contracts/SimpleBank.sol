@@ -53,14 +53,14 @@ contract SimpleBank {
     // Typically, called when invalid data is sent
     // Added so ether sent to this contract is reverted if the contract fails
     // otherwise, the sender's money is transferred to contract
-    fallback() external payable {
+    function() external payable {
         revert();
     }
 
     /// @notice Get balance
     /// @return The balance of the user
     // DONE - A SPECIAL KEYWORD prevents function from editing state variables;
-    // allows function to run locally/off blockchain
+    // allows function to run locally/off blockchain.
     function getBalance() public view returns (uint256) {
         /* Get the balance of the sender of this transaction */
         return msg.sender.balance;
