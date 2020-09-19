@@ -25,15 +25,15 @@ contract SimpleBank {
     //
 
     /* DONE - Add an argument for this event, an accountAddress */
-    event LogEnrolled(address _accountAddress);
+    event LogEnrolled(address accountAddress);
 
     /* DONE - Add 2 arguments for this event, an accountAddress and an amount */
-    event LogDepositMade(address _accountAddress, uint256 _amount);
+    event LogDepositMade(address accountAddress, uint256 amount);
 
     /* DONE - Create an event called LogWithdrawal */
     /* DONE - Add 3 arguments for this event, an accountAddress, withdrawAmount and a newBalance */
     event LogWithdrawal(
-        address _accountAddress,
+        address accountAddress,
         uint256 withdrawAmount,
         uint256 newBalance
     );
@@ -63,7 +63,7 @@ contract SimpleBank {
     // allows function to run locally/off blockchain.
     function getBalance() public view returns (uint256) {
         /* Get the balance of the sender of this transaction */
-        return msg.sender.balance;
+        return balances[msg.sender];
     }
 
     /// @notice Enroll a customer with the bank
@@ -85,7 +85,7 @@ contract SimpleBank {
         /* Add the amount to the user's balance, call the event associated with a deposit,
           then return the balance of the user */
         require(enrolled[msg.sender] == true);
-        balances[msg.sender] = msg.value;
+        balances[msg.sender] += msg.value;
         emit LogDepositMade(msg.sender, msg.value);
         return balances[msg.sender];
     }
